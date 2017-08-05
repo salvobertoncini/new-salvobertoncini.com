@@ -1,7 +1,7 @@
 .post-category
 {
   text-transform: uppercase;
-  color: #2B2B2B;
+  color: #2B2B2B !important;
 }
 
 .post-title, .post-category

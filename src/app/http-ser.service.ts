@@ -28,4 +28,18 @@ export class HttpSerService {
       .map(res =>  res.json());
   }
 
+  testRequest() {
+    var body = '{r: "Testing", d: "username=myusername&password=mypassword"}';
+
+    this.http
+      .post('127.0.0.1/salvobertoncini-server/server.php',
+        body, {
+        })
+      .subscribe(data => {
+        alert('ok');
+      }, error => {
+        console.log(JSON.stringify(error.json()));
+      });
+  }
+
 }

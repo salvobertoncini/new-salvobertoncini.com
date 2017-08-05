@@ -10,10 +10,14 @@ import { AppSidebarComponent } from './app-sidebar/app-sidebar.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: 'about', component: AboutComponent },
+  { path: 'blog', component: HomeComponent },
+  { path: 'contact', component: HomeComponent },
   { path: 'post', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'post/:slug', component: SinglePostComponent },
   /*{ path: 'hero/:id',      component: HeroDetailComponent },
@@ -39,7 +43,8 @@ const appRoutes: Routes = [
     AppSidebarComponent,
     SinglePostComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    AboutComponent
   ],
   imports: [
     RouterModule.forRoot(
