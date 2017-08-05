@@ -19,9 +19,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "assets/css/jquery.bxslider.css",
+        "assets/css/style.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/bootstrap.min.js",
+        "assets/js/jquery.bxslider.js",
+        "assets/js/mooz.scripts.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
