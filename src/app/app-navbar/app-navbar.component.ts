@@ -7,7 +7,7 @@ import { Component, OnInit, PipeTransform, Pipe } from '@angular/core';
 })
 export class AppNavbarComponent implements OnInit {
 
-  pagesList = [ {name: 'Home', value: 'index.html'}, {name: 'About', value: 'about.html'}, {name:'Blog', value: 'blog.html'}, {name:'Contact', value: 'contact.html'}];
+  pagesList = [ {name: 'Home', value: ''}, {name: 'About', value: 'about'}, {name:'Blog', value: 'blog'}, {name:'Contact', value: 'contact'}];
 
   constructor() {
   }

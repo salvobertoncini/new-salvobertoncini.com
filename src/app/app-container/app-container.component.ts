@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpSerService } from '../http-ser.service'
 
 @Component({
   selector: 'app-container',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppContainerComponent implements OnInit {
 
-  constructor() { }
+  getData: string;
+  postData: string;
+
+  //constructor(private _httpService: HttpSerService) { }
 
   ngOnInit() {
   }
