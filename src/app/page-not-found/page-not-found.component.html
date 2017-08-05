@@ -1,0 +1,12 @@
+<div class="col-md-8">
+    <img class="blog-post-image" src="../../assets/images/404.png" alt="404 page not found">
+
+    <h1>Oops!</h1>
+    <h2>We can't seem to find the page you're looking for.</h2>
+    <h3>Error code: 404</h3>
+    <h4>Here are some helpful links instead:</h4>
+    <ul *ngFor="let page of pagesList">
+      <li><a routerLink="/{{page.value}}" routerLinkActive="active">{{page.name}}</a></li>
+    </ul>
+
+</div>

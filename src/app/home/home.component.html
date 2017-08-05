@@ -1,0 +1,11 @@
+<div class="col-md-8">
+  <article class="blog-post" *ngFor="let post of postsHomeList">
+    <div class="blog-post-image">
+      <a [routerLink]="['/post', post.slug]" routerLinkActive="active"><img src="{{post.image}}" alt=""></a>
+    </div>
+    <div class="blog-post-body">
+      <h2><a [routerLink]="['/post', post.slug]" routerLinkActive="active">{{post.title}}</a></h2>
+      <p>{{post.subtitle}}</p>
+    </div>
+  </article>
+</div>
