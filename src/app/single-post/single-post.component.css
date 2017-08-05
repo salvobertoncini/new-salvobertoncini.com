@@ -1,9 +1,10 @@
 .post-category
 {
-  //to upper, black
+  text-transform: uppercase;
+  color: #2B2B2B;
 }
 
-.post-title
+.post-title, .post-category
 {
-  //grassetto
+  font-weight: bold;
 }
