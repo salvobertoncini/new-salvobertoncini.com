@@ -1,45 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpModule, Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
+import { Observable } from "rxjs/Observable"
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/do'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
 @Injectable()
 export class HttpSerService {
 
-  http: Http;
-  returnCommentStatus:Object = [];
-  posts_Url: string = 'https://jsonplaceholder.typicode.com/posts';
+  serverUrl = "http://127.0.0.1/salvobertoncini-server/server.php"
 
-  constructor(public _http: Http)
+  constructor (private _http: Http) {}
+
+  createAuthorizationHeader(headers: Headers) {
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+  }
+
+  getMethod(): Observable<any> {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this._http
+      .get(this.serverUrl, {headers: headers})
+      .map((response: Response) => <any> response.json())
+      .do(data => console.log(data))
+      .catch(this.handleError);
+  }
+
+  postMethod(data) {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this._http.post(this.serverUrl, data, {
+      headers: headers
+    }).catch(this.handleError);
+  }
+
+  private handleError(error: Response)
   {
-    this.http = _http;
+    console.error(error);
+    let message = "Error status code ${error.status} at ${error.url}";
+    return Observable.throw(message);
   }
-
-  message = {
-    "userId": 1,
-    "id": 1000,
-    "title": "Testing",
-    "body": "prova di test lol"
-  };
-
-  postJSON()
-  {
-    return this.http.post(this.posts_Url, this.message, {
-    })
-      .map(res =>  res.json());
-  }
-
-  testRequest() {
-    var body = '{r: "Testing", d: "username=myusername&password=mypassword"}';
-
-    this.http
-      .post('127.0.0.1/salvobertoncini-server/server.php',
-        body, {
-        })
-      .subscribe(data => {
-        alert('ok');
-      }, error => {
-        console.log(JSON.stringify(error.json()));
-      });
-  }
-
 }

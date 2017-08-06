@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from "@angular/http"
 
 import { AppComponent } from './app.component';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
@@ -11,6 +12,7 @@ import { SinglePostComponent } from './single-post/single-post.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import {HttpSerService} from "./http-ser.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -51,9 +53,10 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
+    HttpModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [HttpSerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
