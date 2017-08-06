@@ -8,33 +8,20 @@ import {HttpSerService} from "../http-ser.service";
 })
 export class AboutComponent implements OnInit {
 
-  testVar = [];
-  errorMessage: string;
+  req = {"r": "LastPostN", "n": 3};
 
   constructor(private _httpService: HttpSerService) {
 
   }
 
-  ngOnInit() {this.getInfo2() }
+  ngOnInit() {this.getInfo() }
 
-
-  getInfo(){
-    this._httpService.getMethod()
-      .subscribe(
-        response => this.testVar = response,
-        error => this.errorMessage = <any>error
-      );
-    console.log(this.testVar);
-  }
-
-
-  getInfo2()
+  getInfo()
   {
-    this._httpService.postMethod({r: "Testing"})
+    this._httpService.postMethod({js_object: this.req})
       .subscribe(
-        response => this.testVar = response
+        response => console.log(response)
       );
-    console.log(this.testVar);
   }
 
 }

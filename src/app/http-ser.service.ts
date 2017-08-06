@@ -27,12 +27,11 @@ export class HttpSerService {
       .catch(this.handleError);
   }
 
-  postMethod(data) {
+  postMethod(data): Observable<any> {
     let headers = new Headers();
     this.createAuthorizationHeader(headers);
-    return this._http.post(this.serverUrl, data, {
-      headers: headers
-    }).catch(this.handleError);
+    return this._http.post(this.serverUrl, JSON.stringify(data), {headers: headers})
+      .catch(this.handleError);
   }
 
   private handleError(error: Response)
