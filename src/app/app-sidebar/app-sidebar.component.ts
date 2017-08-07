@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpSerService} from "../http-ser.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppSidebarComponent implements OnInit {
 
-  constructor() { }
+  categoryError = [
+    {
+      "name": "something's wrong"
+    }
+  ];
+  categoriesList = [];
+  req = {"r": "GetCategoriesList"};
+
+  constructor(private _httpService: HttpSerService) { }
 
   ngOnInit() {
+    this.getAllCategories()
+  }
+
+  getAllCategories()
+  {
+    this._httpService.postMethod({js_object: this.req})
+      .subscribe(
+        response => {
+          console.log(response);
+          if (response['response'])
+          {
+            this.categoriesList = response['categoriesList'];
+          }
+          else
+            this.categoriesList = this.categoryError;
+        }
+      );
   }
 
 }

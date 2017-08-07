@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpSerService} from "../http-ser.service";
 
+import { PagerService } from "../pager.service"
+
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -32,29 +34,55 @@ export class BlogComponent implements OnInit {
     }
   ];
   postsBlogList = [];
-  req = {"r": "LastPostN", "n": 3};
+  req = {"r": "LastPostN", "n": 0};
 
-  constructor(private _httpService: HttpSerService) {
+  // array of all items to be paged
+  private allItems: any[];
+
+  // pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
+  constructor(private _httpService: HttpSerService, private pagerService: PagerService) {
   }
 
   ngOnInit() {
-    this.getLatestThreePosts()
+    this.getAllPosts()
   }
 
   public setPostsHomeList(postsHomeList) {
     this.postsBlogList = postsHomeList;
   }
 
-  getLatestThreePosts() {
+  getAllPosts()
+  {
     this._httpService.postMethod({js_object: this.req})
       .subscribe(
         response => {
           console.log(response);
           if (response['response'])
+          {
             this.postsBlogList = response['postsList'];
+            this.setPage(1);
+          }
           else
             this.postsBlogList = this.postsError;
         }
       );
+  }
+
+  setPage(page: number)
+  {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.postsBlogList.length, page);
+
+    // get current page of items
+    this.pagedItems = this.postsBlogList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

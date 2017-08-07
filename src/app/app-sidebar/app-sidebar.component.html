@@ -89,14 +89,8 @@
     <div class="sidebar-widget">
       <h3 class="sidebar-title">Categories</h3>
       <div class="widget-container">
-        <ul>
-          <li><a href="#">Fashion</a></li>
-          <li><a href="#">Art</a></li>
-          <li><a href="#">Design</a></li>
-          <li><a href="#">Featured</a></li>
-          <li><a href="#">Graphics</a></li>
-          <li><a href="#">Peoples</a></li>
-          <li><a href="#">Uncategorized</a></li>
+        <ul *ngFor="let category of categoriesList">
+          <li><a [routerLink]="['/category', category.name]" routerLinkActive="active">{{ category.name }}</a></li>
         </ul>
       </div>
     </div>

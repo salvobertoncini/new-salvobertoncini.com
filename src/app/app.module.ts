@@ -15,6 +15,7 @@ import { AboutComponent } from './about/about.component';
 import {HttpSerService} from "./http-ser.service";
 import { BlogComponent } from './blog/blog.component';
 import { ContactComponent } from './contact/contact.component';
+import {PagerService} from "./pager.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -51,7 +52,10 @@ const appRoutes: Routes = [
     HttpModule,
     BrowserModule
   ],
-  providers: [HttpSerService],
+  providers: [
+    HttpSerService,
+    PagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
