@@ -13,25 +13,18 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import {HttpSerService} from "./http-ser.service";
+import { BlogComponent } from './blog/blog.component';
+import { ContactComponent } from './contact/contact.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
-  { path: 'blog', component: HomeComponent },
-  { path: 'contact', component: HomeComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'blog/:page', component: BlogComponent },
+  { path: 'contact', component: ContactComponent },
   { path: 'post', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'post/:slug', component: SinglePostComponent },
-  /*{ path: 'hero/:id',      component: HeroDetailComponent },
-  {
-    path: 'heroes',
-    component: HeroListComponent,
-    data: { title: 'Heroes List' }
-  },
-  { path: '',
-    redirectTo: '/heroes',
-    pathMatch: 'full'
-  },*/
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -46,7 +39,9 @@ const appRoutes: Routes = [
     SinglePostComponent,
     PageNotFoundComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    BlogComponent,
+    ContactComponent
   ],
   imports: [
     RouterModule.forRoot(
