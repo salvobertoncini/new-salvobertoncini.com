@@ -6,15 +6,15 @@ import {HttpSerService} from "../http-ser.service";
 import { PagerService } from "../pager.service"
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  selector: 'app-tag',
+  templateUrl: './tag.component.html',
+  styleUrls: ['./tag.component.css']
 })
-export class BlogComponent implements OnInit {
+export class TagComponent implements OnInit {
 
   postsBlogList = [];
-  req = {"r": "LastPostN", "n": 0};
-  page: string;
+  req = {"r": "GetPostsWithTag", "t": 0};
+  tag: string;
   private sub: any;
 
   // pager object
@@ -27,20 +27,18 @@ export class BlogComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.page = params['page'];
-      if(this.page)
-        this.getAllPosts(+this.page);
+      this.tag = params['tag'];
+      if(this.tag)
+        this.setPostsWithCategoryList(this.tag);
       else
-        this.getAllPosts(1);
+        this.setPostsWithCategoryList(false);
     });
   }
 
-  public setPostsHomeList(postsHomeList) {
-    this.postsBlogList = postsHomeList;
-  }
-
-  getAllPosts(currpage: number)
+  setPostsWithCategoryList(tag)
   {
+    if(tag)
+      this.req = {"r": "GetPostsWithTag", "t": tag};
     this._httpService.postMethod({js_object: this.req})
       .subscribe(
         response => {
@@ -48,7 +46,7 @@ export class BlogComponent implements OnInit {
           if(response['response'])
           {
             this.postsBlogList = response['postsList'];
-            this.setPage(currpage);
+            this.setPage(1);
           }
           else
             this.router.navigate(['/page-not-found']);
@@ -58,8 +56,6 @@ export class BlogComponent implements OnInit {
 
   setPage(page: number)
   {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.postsBlogList.length, 1);
 
     if (page < 1 || page > this.pager.totalPages) {
       page = 1;

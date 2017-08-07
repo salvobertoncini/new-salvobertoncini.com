@@ -15,6 +15,7 @@ export class SinglePostComponent implements OnInit {
 
   slug: string;
   private sub: any;
+  postsTitleList: any;
   postWithSlugList: any;
   req = {};
 
@@ -41,7 +42,10 @@ export class SinglePostComponent implements OnInit {
         {
           console.log(response);
           if (response['response'])
+          {
             this.postWithSlugList = response['postsList'];
+            this.postsTitleList = response['postsTitleList'];
+          }
           else
             this.router.navigate(['/page-not-found']);
         }

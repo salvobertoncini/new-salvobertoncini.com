@@ -18,6 +18,7 @@ import { ContactComponent } from './contact/contact.component';
 import {PagerService} from "./pager.service";
 import { CategoryComponent } from './category/category.component';
 import { AuthorComponent } from './author/author.component';
+import { TagComponent } from './tag/tag.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'blog/:page', component: BlogComponent },
   { path: 'category', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'category/:category', component: CategoryComponent },
+  { path: 'tag', redirectTo: 'blog', pathMatch: 'full' },
+  { path: 'tag/:tag', component: TagComponent },
   { path: 'author', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'author/:author', component: AuthorComponent },
   { path: 'contact', component: ContactComponent },
@@ -50,7 +53,8 @@ const appRoutes: Routes = [
     BlogComponent,
     ContactComponent,
     CategoryComponent,
-    AuthorComponent
+    AuthorComponent,
+    TagComponent
   ],
   imports: [
     RouterModule.forRoot(
