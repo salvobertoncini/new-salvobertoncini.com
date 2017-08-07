@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Router} from '@angular/router';
+import {Router} from "@angular/router";
 
 import {HttpSerService} from "../http-ser.service";
 import { PagerService } from "../pager.service"
 
-@Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
-})
-export class BlogComponent implements OnInit {
 
+@Component({
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css']
+})
+export class CategoryComponent implements OnInit {
   postsError = [
     {
       id: 1,
@@ -36,8 +36,8 @@ export class BlogComponent implements OnInit {
     }
   ];
   postsBlogList = [];
-  req = {"r": "LastPostN", "n": 0};
-  page: string;
+  req = {"r": "GetPostsWithCategory", "c": 0};
+  category: string;
   private sub: any;
 
   // pager object
@@ -50,39 +50,35 @@ export class BlogComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.page = params['page'];
-      if(this.page)
-        this.getAllPosts(+this.page);
+      this.category = params['category'];
+      if(this.category)
+        this.setPostsWithCategoryList(this.category);
       else
-        this.getAllPosts(1);
+        this.setPostsWithCategoryList(false);
     });
   }
 
-  public setPostsHomeList(postsHomeList) {
-    this.postsBlogList = postsHomeList;
-  }
-
-  getAllPosts(currpage: number)
+  setPostsWithCategoryList(category)
   {
+    if(category)
+      this.req = {"r": "GetPostsWithCategory", "c": category};
     this._httpService.postMethod({js_object: this.req})
       .subscribe(
         response => {
           console.log(response);
           if(response['response'])
           {
-            this.postsBlogList = response['postsList'];
-            this.setPage(currpage);
+              this.postsBlogList = response['postsList'];
+              this.setPage(1);
           }
           else
-            this.router.navigate(['/page-not-found']);
+          this.router.navigate(['/page-not-found']);
         }
       );
   }
 
   setPage(page: number)
   {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.postsBlogList.length, 1);
 
     if (page < 1 || page > this.pager.totalPages) {
       page = 1;

@@ -16,6 +16,8 @@ import {HttpSerService} from "./http-ser.service";
 import { BlogComponent } from './blog/blog.component';
 import { ContactComponent } from './contact/contact.component';
 import {PagerService} from "./pager.service";
+import { CategoryComponent } from './category/category.component';
+import { AuthorComponent } from './author/author.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +25,10 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'blog/:page', component: BlogComponent },
+  { path: 'category', redirectTo: 'blog', pathMatch: 'full' },
+  { path: 'category/:category', component: CategoryComponent },
+  { path: 'author', redirectTo: 'blog', pathMatch: 'full' },
+  { path: 'author/:author', component: AuthorComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'post', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'post/:slug', component: SinglePostComponent },
@@ -42,7 +48,9 @@ const appRoutes: Routes = [
     HomeComponent,
     AboutComponent,
     BlogComponent,
-    ContactComponent
+    ContactComponent,
+    CategoryComponent,
+    AuthorComponent
   ],
   imports: [
     RouterModule.forRoot(

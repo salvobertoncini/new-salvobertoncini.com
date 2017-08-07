@@ -1,0 +1,32 @@
+<div class="col-md-8">
+  <article class="blog-post" *ngFor="let post of pagedItems">
+    <div class="blog-post-image">
+      <a [routerLink]="['/post', post.slug]" routerLinkActive="active"><img src="{{post.image}}" alt=""></a>
+    </div>
+    <div class="blog-post-body">
+      <h2><a [routerLink]="['/post', post.slug]" routerLinkActive="active">{{post.title}}</a></h2>
+      <p>{{post.subtitle}}</p>
+    </div>
+    <!-- pager -->
+    <div *ngIf="pager.pages && pager.pages.length && post === pagedItems[pagedItems.length - 1]" class="centered">
+      <ul class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+      </ul>
+    </div>
+  </article>
+
+</div>

@@ -90,7 +90,7 @@
       <h3 class="sidebar-title">Categories</h3>
       <div class="widget-container">
         <ul *ngFor="let category of categoriesList">
-          <li><a [routerLink]="['/category', category.name]" routerLinkActive="active">{{ category.name }}</a></li>
+          <li><a [routerLink]="['/category', category.name]">{{ category.name }}</a></li>
         </ul>
       </div>
     </div>
