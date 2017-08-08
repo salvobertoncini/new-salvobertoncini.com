@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Router} from '@angular/router';
 
-import {HttpSerService} from "../http-ser.service";
-import { PagerService } from "../pager.service"
+import {HttpSerService} from "../_services/http/http-ser.service";
+import { PagerService } from "../_services/pagination/pager.service"
 
 @Component({
   selector: 'app-author',

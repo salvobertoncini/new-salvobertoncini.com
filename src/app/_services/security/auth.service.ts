@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map'
 
-import {HttpSerService} from "../http-ser.service"
+import {HttpSerService} from "../http/http-ser.service"
 
 @Injectable()
 export class AuthService {
@@ -28,7 +28,7 @@ export class AuthService {
 
   */
 
-  login(username, password)
+  login(username: string, password: string)
   {
     let req = {"r": "login", "u": username, "p": password};
     this._httpService.postMethod({js_object: req})
@@ -37,8 +37,13 @@ export class AuthService {
         {
           console.log(response);
           if (response['response'])
-            if(response['user'] && response['user'].token)
-              localStorage.setItem('currentUser', response['user']);
+          {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', response['user']);
+            return true;
+          }
+          else
+            return false;
         }
       );
   }

@@ -3,7 +3,7 @@ import {ActivatedRoute, Route} from '@angular/router';
 import { Router} from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SecurityContext } from '@angular/core';
-import {HttpSerService} from "../http-ser.service";
+import {HttpSerService} from "../_services/http/http-ser.service";
 import 'rxjs/add/operator/switchMap';
 
 @Component({

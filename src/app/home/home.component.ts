@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpSerService} from "../http-ser.service";
+import {HttpSerService} from "../_services/http/http-ser.service";
 
 @Component({
   selector: 'app-home',

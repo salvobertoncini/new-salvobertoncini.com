@@ -12,16 +12,18 @@ import { SinglePostComponent } from './single-post/single-post.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import {HttpSerService} from "./http-ser.service";
+import {HttpSerService} from "./_services/http/http-ser.service";
 import { BlogComponent } from './blog/blog.component';
 import { ContactComponent } from './contact/contact.component';
-import {PagerService} from "./pager.service";
+import {PagerService} from "./_services/pagination/pager.service";
 import { CategoryComponent } from './category/category.component';
 import { AuthorComponent } from './author/author.component';
 import { TagComponent } from './tag/tag.component';
-import { AuthGuard} from "./security/auth.guard"
-import {AuthService} from "./security/auth.service";
+import { AuthGuard} from "./_services/security/auth.guard"
+import {AuthService} from "./_services/security/auth.service";
 import { LoginComponent } from './login/login.component';
+import {AlertService} from "./_services/alert/alert.service";
+import { AlertComponent } from './_services/alert/alert.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'post', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'post/:slug', component: SinglePostComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -58,12 +61,12 @@ const appRoutes: Routes = [
     CategoryComponent,
     AuthorComponent,
     TagComponent,
-    LoginComponent
+    LoginComponent,
+    AlertComponent
   ],
   imports: [
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      appRoutes
     ),
     HttpModule,
     BrowserModule
@@ -71,6 +74,7 @@ const appRoutes: Routes = [
   providers: [
     HttpSerService,
     PagerService,
+    AlertService,
     AuthService,
     AuthGuard
   ],

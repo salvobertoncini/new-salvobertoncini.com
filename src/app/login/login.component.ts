@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpSerService} from "../http-ser.service";
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AlertService } from '../_services/alert/alert.service';
+import {AuthService} from "../_services/security/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -8,31 +11,39 @@ import {HttpSerService} from "../http-ser.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _httpService: HttpSerService) { }
+  model = {
+    username: "",
+    password: ""
+  };
+  loading = false;
+  returnUrl: string;
+
+  username;
+  password;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
+    // reset login status
+    this.authService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
   }
 
-
-  login(username, password)
-  {
-    let req = {"r": "login", "u": username, "p": password};
-    this._httpService.postMethod({js_object: req})
-      .subscribe(
-        response =>
-        {
-          console.log(response);
-          if (response['response'])
-            if(response['user'] && response['user'].token)
-              localStorage.setItem('currentUser', response['user']);
-        }
-      );
-  }
-
-  logout()
-  {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+  login() {
+    this.loading = true;
+    if (this.authService.login(this.model.username, this.model.password))
+      this.router.navigate([this.returnUrl]);
+    else
+    {
+      this.alertService.error('error');
+      this.loading = false;
+    }
   }
 
 }
