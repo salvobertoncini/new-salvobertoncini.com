@@ -19,6 +19,9 @@ import {PagerService} from "./pager.service";
 import { CategoryComponent } from './category/category.component';
 import { AuthorComponent } from './author/author.component';
 import { TagComponent } from './tag/tag.component';
+import { AuthGuard} from "./security/auth.guard"
+import {AuthService} from "./security/auth.service";
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -54,7 +57,8 @@ const appRoutes: Routes = [
     ContactComponent,
     CategoryComponent,
     AuthorComponent,
-    TagComponent
+    TagComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -66,7 +70,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     HttpSerService,
-    PagerService
+    PagerService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
